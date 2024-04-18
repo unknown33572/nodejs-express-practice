@@ -1,0 +1,14 @@
+{
+  "name": "roadbook_nodejs",
+  "version": "1.0.0",
+  "description": "nodejs_study",
+  "main": "index.js",
+  "scripts": {
+    "test": "this is test"
+  },
+  "author": "s",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
