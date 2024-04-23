@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+</head>
+<body>
+  <h2>Express로 웹 만들기</h2>
+  <p>Express로 웹을 만들어봅시다.</p>
+  <p>이거슨 바로바로 메인페이지 입니다.</p>
+  <img src="./sample01.webp" alt="" style="height: 100px; width: 100px;">
+  <button id="login">Login</button>
+
+  <script>
+    document.getElementById('login').addEventListener('click', () => {
+      location.href = '/login';
+    });
+  </script>
+</body>
+</html>
