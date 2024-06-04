@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>웹소켓 테스트</div>
+  <script>
+    const webSocket = new WebSocket('ws://localhost:8080');
+    webSocket.onopen = () => {
+      console.log('웹소켓 연결 성공');
+      webSocket.send('안녕하세요');
+    };
+    webSocket.onmessage = (message) => {
+      console.log('메시지 수신: ', message.data);
+      webSocket.send('안녕하세요요요');
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+  <!-- <link rel="stylesheet" href="chatApp.css"> -->
+  <title>Chatting</title>
+</head>
+<body>
+  <div id="login-area">
+    <div id="login-text"><h1>Username 등록</h1></div>
+    <div id="login-form-area">
+      <form action="" id="login-form">
+        <input type="text" id="user-name" placeholder="Username" required />
+        <input type="submit" id="login-submit" value="Login" />
+      </form>
+    </div>
+  </div>
+  <div id="chat-area">
+    <div id="user-area">
+      <div id="online-users-text">
+        <h1>Online Users:</h1>
+      </div>
+      <div id="online-users">
+        <ul id="users"></ul>
+      </div>
+    </div>
+  </div>
+  <div id="message-area">
+    <div id="display-message-area">
+      <ul id="messages"></ul>
+    </div>
+
+    <div id="message-form-area">
+      <form action="" id="message-form">
+        <input type="text" id="message" />
+        <input type="submit" id="message-submit" value="Send" />
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript">
+    const socket = io();
+
+    function updataUsers(list) {
+      for (let i = 0; i < list.length; i++) {
+        $('#users').append('<li><b>' + list[i] + '</b></li>');
+      }
+    }
+
+    $('#login-form').submit((e) => {
+      e.preventDefault();
+      if ($('#user-name').val() == '' || $('#user-name').val() == ' ') {
+        alert('Please enter a valid username');
+      } else {
+        $username = $('#user-name').val();
+        $('#login-area').hide();
+        $('#chat-area').show();
+
+        $('#messages').html('');
+        socket.emit('has connected', $username);
+      }
+    });
+
+    $('#message-form').submit((e) => {
+      e.preventDefault();
+      if ($('#message').val() == '' || $('message').val() == ' ') {
+        alert('메시지를 입력해주세요.')
+      } else {
+        socket.emit('new message', {
+          username: $username,
+          messagez: $('#message').val(),
+        });
+        $('#message').val('');
+      }
+    });
+
+    socket.on('has connected', function(data) {
+      updataUsers(data.users);
+      $('#messages').append(
+        '<li><i><b>' + data.username + '</b> has connected </i></li>'
+      );
+    });
+
+    socket.on('has disconnected', function(data) {
+      updataUsers(data.users);
+      $('#messages').append(
+        '<li><i><b>' + data.username + '</b> has disconnected </i></li>'
+      );
+    });
+
+    socket.on('chat message', function(data){
+      $('#messages').append(
+        '<li><i><b>' + data.username + '</b>: ' + data.message + '</i></li>'
+      );
+      console.log(data.message);
+    });
+  </script>
+</body>
+</html>

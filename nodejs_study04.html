@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocketIO</title>
+</head>
+<body>
+  <div>웹소켓IO 모듈</div>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <script>
+    const socket = io.connect('http://localhost:8080', {
+      path: '/socket.io',
+      transports: ['websocket'],
+    });
+    socket.on('from server', (data) => {
+      console.log(data);
+      socket.emit('from client', 'Hello Server');
+    });
+  </script>
+</body>
+</html>

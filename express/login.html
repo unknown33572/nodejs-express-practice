@@ -6,8 +6,18 @@
   <title>Document</title>
 </head>
 <body>
-  <div>ID : <input type="text"></div>
-  <div>PW : <input type="password"></div>
+  <form action="/login" method="post">
+    <div class="">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <div class="">
+      <input type="submit" value="Login">
+    </div>
+  </form>
   
 </body>
 </html>
